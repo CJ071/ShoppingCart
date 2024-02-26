@@ -9,9 +9,10 @@ const Homepage = () => {
     if(error)
         console.log(error)
 
+
   return (
     <div className='grid'>
-       {loading || !products?<SpinLoader/>:products?.map(p=> <ProductCard key={p.id} product={p}/> )}
+       {loading || !products?<SpinLoader/>:products?.map(p=> <ProductCard key={p.id} product={p} id={p.id} allProducts={products}/> )}
     </div>
   )
 }
