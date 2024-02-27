@@ -5,14 +5,16 @@ import './Shoppage.css'
 import SubtotalField from '../../components/Subtotal/Subtotal'
 
 const Shoppage = () => {
-  const {cartItems,SubAmount}=useShopContext()
+  const {cartItems,subAmount}=useShopContext()
+  const showItems=()=>{
 
-  
-
+  }
   return (
-    <div className='grid'>
+    <div>
+      <SubtotalField/>
+    <div className='Grid'>
      {cartItems.map(item=><ProductCard key={item.id} product={item}/>)}
-     <SubtotalField subtotal={SubAmount}/>
+    </div>
     </div>
   )
 }

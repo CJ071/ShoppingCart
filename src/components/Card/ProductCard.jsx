@@ -3,17 +3,21 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import useShopContext from '../../context/ShopContext/ShopContext';
 
+
 function ProductCard({product}) {
 
-  const {addToCart,onSubAmountChange,SubAmount}=useShopContext()
-  const [quantity, setQuantity] = useState(product.quantity);
+  const {addToCart,updateCartItemQuantity}=useShopContext()
+  const [quantity, setQuantity] = useState(product.quantity || 0);
+
+  useEffect(() => {
+    setQuantity(product.quantity || 0)
+   }, [product.quantity]);
 
   const handleQuantityChange = (event) => {
     const newQuantity = parseInt(event.target.value);
-    if (!isNaN(newQuantity) && newQuantity >= 1) {
-      setQuantity(newQuantity);
-    }
-  };
+    setQuantity(newQuantity);
+    updateCartItemQuantity(product.id,newQuantity)
+};
 
   return (
     <Card  style={{ width: '18rem',margin:'20px auto'}}>
@@ -31,8 +35,8 @@ function ProductCard({product}) {
           <input
             type="number"
             id="quantity"
-            min="1"
-            defaultValue={quantity}
+            min={0}
+            value={quantity}
             onChange={handleQuantityChange}
             style={{ border: '1px solid #ced4da', borderRadius: '4px', padding: '6px' }}
           />
